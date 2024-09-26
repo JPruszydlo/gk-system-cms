@@ -1,0 +1,119 @@
+<div class="page-container mt-5">
+  <div class="grid mb-2" style="grid-template-columns: fit-content(132px) auto">
+    <span>
+      <input #selectAll type="checkbox" class="ml-1 w-3.5 h-3.5" (change)="toggleSelectAll(selectAll.checked)" />
+      <button
+        class="text-xs p-1 ml-1 bg-red-500 rounded-md text-white {{ removeButtonClass }}"
+        (click)="removeSelected()"
+      >
+        Usuń zaznaczone
+      </button>
+    </span>
+    <span class="text-right">
+      <select (change)="inputChange($event)" class="border-2 text-sm mr-2">
+        <option *ngFor="let num of [10, 20, 30]" [value]="num">{{ num }}</option>
+      </select>
+      <span class="text-nowrap">
+        <button (click)="changePage(-1)"><i class="px-2 py-2 bg-neutral-200 pi pi-chevron-left"></i></button>
+        {{ start }}-{{ end }}
+        <button (click)="changePage(+1)"><i class="px-2 py-2 bg-neutral-200 pi pi-chevron-right"></i></button>
+      </span>
+    </span>
+  </div>
+  <p-accordion #accordion [(activeIndex)]="activeIdx" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+    <p-accordionTab *ngFor="let email of emailsPart" [iconPos]="'end'" [headerStyleClass]="'px-1 py-2 bg-neutral-200'">
+      <ng-template pTemplate="header">
+        <div class="relative w-full">
+          <div class="grid font-normal items-center" style="grid-template-columns: 18px minmax(100px, 1fr) 65px">
+            <div>
+              <input
+                #selectItem
+                (click)="$event.stopPropagation()"
+                (change)="selectionChange()"
+                [value]="email.id"
+                type="checkbox"
+                class="w-3.5 h-3.5 m-0 p-0"
+              />
+            </div>
+            <div class="flex flex-col">
+              <p class="text-sm">{{ email.senderName }} {{ email.senderSurname }}</p>
+              <p class="text-xs whitespace-nowrap overflow-hidden overflow-ellipsis">
+                {{ email.emailContent }}
+              </p>
+            </div>
+            <div class="text-xs text-right">{{ getDate(email.sendAt) }}</div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="m-0 p-0 text-xs text-neutral-500">
+        <p>
+          <i class="mr-1 pi pi-map-marker text-xs"></i>{{ email.senderPostal }} {{ email.senderCity }},
+          {{ email.senderState }}, {{ email.senderCountryCode }}
+        </p>
+        <p><i class="mr-1 pi pi-phone text-xs"></i>{{ email.senderPhone }}</p>
+        <p><i class="mr-1 pi pi-at text-xs"></i>{{ email.senderEmail }}</p>
+        <p class="mt-2">{{ email.emailContent }}</p>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+  <!-- <div
+    *ngFor="let email of emailsPart; first as isFirst"
+    [style.border-top]="isFirst ? '1px solid lightgray' : ''"
+    [style.border-bottom]="'1px solid lightgray'"
+    class="grid py-1 items-center relative"
+    style="grid-template-columns: 18px minmax(18px, 1fr) 65px"
+    (click)="content.className = content.className == 'open' ? 'close' : 'open'"
+  >
+    <div #test><input type="checkbox" /></div>
+    <div class="flex flex-col">
+      <p class="text-sm">{{ email.senderName }} {{ email.senderSurname }}</p>
+      <p class="text-xs whitespace-nowrap overflow-hidden overflow-ellipsis">
+        {{ email.emailContent }}
+      </p>
+    </div>
+    <div class="text-xs text-right">{{ getDate(email.sendAt) }}</div>
+
+    <div #content class="box-closed">AAAAA</div>
+  </div>
+</div> -->
+
+  <!-- <div class="page-container">
+  <p *ngIf="emails.length == 0" class="pt-5 px-5">Brak wiadomości...</p>
+  <span *ngIf="emails.length > 0">
+    <div class="mb-2 pt-4">
+      <button class="button-red mr-2" (click)="toggleSelectAll()">{{ buttonText }} wszystkie</button>
+      <button class="button-red {{ removeButtonClass }}" (click)="removeSelected()">Usuń zaznaczone</button>
+    </div>
+    <div
+      *ngFor="let item of emails"
+      class="grid grid-flow-col w-1/2"
+      style="grid-template-columns: fit-content(16px) auto"
+    >
+      <input #selectItem (change)="selectionChange()" [value]="item.id" type="checkbox" class="w-5 mr-2 mt-5 mb-auto" />
+      <p-accordion expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up">
+        <p-accordionTab [headerStyleClass]="'bg-neutral-100 border-2 py-1 px-1 w-full'">
+          <ng-template pTemplate="header">
+            <div class="grid" style="grid-template-columns: 30% auto 10%">
+              <p class="text-xs">{{ item.senderName }} {{ item.senderSurname }}</p>
+              <div class="flex flex-col items-end self-end">
+                <span>{{ getDate(item.sendAt) }}</span>
+                <span class="text-xs text-neutral-500">
+                  {{ item.senderPostal }}
+                  {{ item.senderCity }}, {{ item.senderState }},
+                  {{ item.senderCountryCode }}
+                </span>
+              </div>
+            </div>
+          </ng-template>
+          <div class="flex flex-col">
+            <p>tel: {{ item.senderPhone }}</p>
+            <p>email: {{ item.senderEmail }}</p>
+            <p class="mt-2">{{ item.emailContent }}</p>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </span>
+</div> -->
+</div>

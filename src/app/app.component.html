@@ -1,0 +1,10 @@
+<main>
+  <p-toast position="top-right" styleClass="font-bold text-lg" [style]="{ width: 'min(400px, 80vw)' }" />
+  <span *ngIf="userAuthorised">
+    <app-navbar />
+    <div>
+      <router-outlet />
+    </div>
+  </span>
+  <router-outlet *ngIf="!userAuthorised" />
+</main>

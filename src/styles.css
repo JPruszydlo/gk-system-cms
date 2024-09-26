@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@import "quill/dist/quill.core.css";
+@import "quill/dist/quill.snow.css";
+@import "quill/dist/quill.bubble.css";
+
+
+.p-tabview {
+    @apply absolute left-64 my-10 w-8/12
+}
+.p-tabview-nav-content {
+    @apply rounded-t-md
+}
+/* main {
+    @apply bg-opacity-60 w-screen h-screen ;
+    background-image: url('assets/tresc_1.jpg');
+    background-position: center;
+    background-size: cover;
+} */
+#main-container {
+    @apply w-screen h-screen bg-gray-800 bg-opacity-90
+}
+::-webkit-scrollbar {
+    @apply w-2.5;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-gray-200 rounded;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-red-500 rounded;
+}
+ 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-red-600;
+}
+
+.button-red {
+    @apply bg-red-400 text-white px-3 py-1 rounded-md;
+}
+
+#toolbar-container{ @apply bg-gray-100}
+.ql-container{ @apply bg-white}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="1.0"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="1.0"]::before {
+    content: '1.0' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="1.2"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="1.2"]::before {
+    content: '1.2' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="1.4"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="1.4"]::before {
+    content: '1.4' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="1.6"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="1.6"]::before {
+    content: '1.6' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="2.0"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="2.0"]::before {
+    content: '2.0' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="2.5"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="2.5"]::before {
+    content: '2.5' !important ;
+}
+.ql-snow .ql-picker.ql-line-height .ql-picker-item[data-value="3.0"]::before,
+.ql-snow .ql-picker.ql-line-height .ql-picker-label[data-value="3.0"]::before {
+    content: '3.0'!important ;
+}
+
+.button-red {
+    @apply text-gray-50 px-3 py-1 rounded bg-red-500 hover:bg-red-600 cursor-pointer;
+}
+.footer {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid lightgray;    
+}
+@media screen and (min-width: 1000px) {
+    .page-container {
+        @apply pl-64 pr-4 w-full pt-5
+    }
+    .tab-view-style {
+        @apply absolute w-full left-0;
+        padding-left: 240px;
+    }
+    .banner-config-panel .p-selectbutton {
+        @apply w-fit border-red-500 rounded-lg;
+        border-width: 2px;
+    }
+    .banner-config-panel .p-selectbutton .p-highlight {
+        @apply button-red;
+    }
+    .banner-config-panel .p-selectbutton .p-button {
+        @apply text-sm px-2 py-1;
+    }
+}
+@media screen and (max-width: 999px) {
+    .page-container {
+        @apply w-full pt-10
+    }
+    .tab-view-style {
+        @apply absolute w-full left-0;
+        padding-left: 0;
+    }
+    .banner-config-panel .p-selectbutton {
+        @apply w-fit border-red-500 rounded-lg;
+        border-width: 1px;
+    }
+    .banner-config-panel .p-selectbutton .p-highlight {
+        @apply button-red;
+    }
+    .banner-config-panel .p-selectbutton .p-button {
+        @apply text-sm px-2 py-1 w-full;
+    }
+}
+
+@keyframes leaves {
+    0% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+    100% {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+    }
+}
+
+.p-tabview-nav .p-highlight {
+    @apply text-red-500 border-b-4 border-red-500
+}
+.p-tabview-nav li:hover {
+    @apply text-red-400 border-b-4 border-red-400
+}
+
+#ref-type-select .p-button {
+    @apply text-sm py-2 px-3;
+}
+
+
+
+#navbar .p-highlight {
+    @apply bg-red-400 border-2 border-white;
+    box-shadow: 0 0 5px white;
+}
+:host ::ng-deep .small-spinner .p-progress-spinner-circle { 
+    animation: colorChange 1s ease-in-out infinite; 
+  } 
+    
+  @keyframes colorChange { 
+      0% { 
+        stroke: #ef4444; 
+      }
+      50% {
+        stroke: #000000; 
+      }
+      100% { 
+        stroke: #ef4444; 
+      } 
+  }
+
+  .button-inactive {
+    @apply bg-neutral-400;
+    pointer-events: none;
+    animation: none;
+  }
+
+  .fade-out {
+    animation: fadeOut 0.5s forwards;
+  }
+  .fade-in {
+    animation: fadeIn 0.8s forwards;
+  }
+  .fade-in-grid {
+    animation: fadeInGrid 0.8s forwards;
+  }
+  .blink {
+    animation: blinker 0.6s linear infinite;
+  }
+  
+  @keyframes blinker {
+    0% { scale: 1; }
+    50% { scale: 1.1; }
+    0% { scale: 1; }
+  }
+
+  @keyframes fadeOut {
+    0%   {opacity: 1;}
+    100% {opacity: 0; display: none;}
+
+  }
+  @keyframes fadeIn {
+    0%   {display:block; opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeInGrid {
+    0%   {display:block; opacity: 0;}
+    100% {opacity: 1;}
+  }

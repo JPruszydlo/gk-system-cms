@@ -1,0 +1,36 @@
+<div class="login-page-container">
+  <div class="login-box">
+    <img src="../../../assets/screw.png" />
+    <img src="../../../assets/screw.png" />
+    <img src="../../../assets/screw.png" />
+    <img src="../../../assets/screw.png" />
+    <p class="text-center text-gray-700 text-3xl font-bold">Logowanie</p>
+    <div class="credentials">
+      <input type="text" [(ngModel)]="loginValue" placeholder="Login" />
+      <p-password
+        #password
+        placeholder="Hasło"
+        [(ngModel)]="passwordValue"
+        [feedback]="false"
+        [toggleMask]="true"
+        [style]="{ width: '100%' }"
+        [inputStyle]="{ width: '100%', borderRadius: '6px', padding: '4px' }"
+        (keyup.enter)="authorizeUser()"
+      />
+    </div>
+    <div class="buttons">
+      <button class="button-red" (click)="authorizeUser()">Zaloguj</button>
+
+      <p><button class="underline" (click)="resetBox.style.display = 'block'">Zapomniałem hasła</button></p>
+    </div>
+
+    <div class="reset mt-2 border-t-2 border-gray-500 hidden" #resetBox>
+      <p class="text-center text-gray-700 text-xl font-bold">Resetowanie hasła</p>
+      <div class="credentials">
+        <input type="text" [(ngModel)]="resetLoginValue" placeholder="Login" />
+        <input type="text" [(ngModel)]="resetEmailValue" placeholder="Email" (keyup.enter)="resetPassword()" />
+      </div>
+      <p class="pt-1 text-center"><button class="button-red" (click)="resetPassword()">Resetuj</button></p>
+    </div>
+  </div>
+</div>

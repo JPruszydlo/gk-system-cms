@@ -1,0 +1,66 @@
+<div class="home-page-container">
+  <div *ngIf="!dataSaved" class="absolute top-0 left-60 right-0 h-full bg-black bg-opacity-60 z-50">
+    <div class="text-center relative top-1/2 -translate-y-1/2">
+      <p-progressSpinner strokeWidth="5" animationDuration=".8s" styleClass="h-32 w-32" />
+      <p class="text-3xl text-red font-semibold text-red-500">Trwa zapis</p>
+    </div>
+  </div>
+
+  <p-progressSpinner *ngIf="!dataReady" styleClass="absolute top-1/2 -translate-y-1/2" [style]="{ left: '55vw' }" />
+  <span *ngIf="dataReady">
+    <p-tabView [activeIndex]="0" [styleClass]="'tab-view-style'">
+      <p-tabPanel header="Opis firmy" class="fade-in">
+        <app-text-editor editorWith="100%" [text]="mainPageDescription" (editorChanged)="editorResult = $event" />
+
+        <div
+          class="w-1/2 m-auto my-4 bg-black"
+          (mouseover)="FileInput.visible = true"
+          (mouseout)="FileInput.visible = false"
+        >
+          <div class="relative">
+            <img
+              #DescImage
+              [src]="'https://gk-system.myshort.pl/assets/images/' + mainPageDescImage"
+              [style.cursor]="'pointer'"
+              [alt]="mainPageDescImage"
+            />
+            <app-input-file
+              #FileInput
+              (inputChange2)="DescImage.src = $event.base64; DescImage.alt = $event.filename"
+              styleClass="text-7xl"
+            />
+          </div>
+        </div>
+
+        <p class="footer">
+          <button class="button-red" (click)="saveAboutUsShort(DescImage)">Zapisz zmiany</button>
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Konfiguracja bannera">
+        <p-tabView [activeIndex]="0" [styleClass]="'tab-view-style'"
+          ><p-tabPanel header="Strona główna">
+            <app-banner-config pageName="home" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="Oferty">
+            <app-banner-config pageName="for-sell" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="Szczegóły oferty">
+            <app-banner-config pageName="for-sell-details" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="O nas">
+            <app-banner-config pageName="about-us" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="Realizacje">
+            <app-banner-config pageName="realisations" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="Referencje">
+            <app-banner-config pageName="references" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+          <p-tabPanel header="Kontakt">
+            <app-banner-config pageName="contact" [carouselConfig]="carouselConfig" />
+          </p-tabPanel>
+        </p-tabView>
+      </p-tabPanel>
+    </p-tabView>
+  </span>
+</div>

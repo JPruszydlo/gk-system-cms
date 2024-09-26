@@ -1,0 +1,6 @@
+<div class="page-container pb-10">
+  <div class="p-4 fade-in">
+    <app-text-editor editorWith="100%" [text]="longDescription" (editorChanged)="editorResult = $event" />
+  </div>
+  <p class="text-center"><button class="button-red" (click)="saveChanges()">Zapisz</button></p>
+</div>

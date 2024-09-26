@@ -1,0 +1,10 @@
+@media screen and (min-width: 1000px) {
+    .page-container > div {
+        @apply grid-cols-4 gap-2 
+    }
+}
+@media screen and (max-width: 999px) {
+    .page-container > div {
+        @apply grid-cols-1 gap-2 py-5
+    }
+}

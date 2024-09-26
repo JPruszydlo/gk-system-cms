@@ -1,0 +1,19 @@
+.hide {
+    border: 1px solid red;
+}
+.ql-font span[data-label="Arial"]::before {
+    font-family: "Arial";
+}
+.ql-font span[data-label="Verdana"]::before {
+    font-family: "Verdana";
+  }
+
+.ql-picker.ql-line-height { min-width: 60px;}
+
+.ql-size, .ql-font {
+    @apply border-gray-300 rounded;
+    border-width: 1px;
+}
+#test-content p {
+    white-space: pre-wrap;
+}

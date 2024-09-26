@@ -1,0 +1,86 @@
+@media screen and (min-width: 1000px) {
+    .offer-details .wrapper {
+        right: 12.5%;
+        left: 12.5%;
+    }
+    .offer-details .house-params {
+        @apply px-4 
+    }
+    .plans .plan {
+        @apply grid grid-cols-2 
+    }
+    .plans .plan .param {
+        grid-template-columns: 4% 48% 48%
+    }
+}
+@media screen and (max-width: 999px) {
+    .offer-details .wrapper {
+        @apply left-1/2 -translate-x-1/2;
+        width: 97%;
+    }
+    .plans .plan .param {
+        grid-template-columns: 18px 65% 35%
+    }
+    button.offer {
+        @apply mt-8
+    }
+}
+.offer {
+    @apply mx-auto relative mb-10;
+    cursor: default;
+    width: min(500px, 95vw);
+}
+.offer > div:last-of-type {
+    @apply absolute bottom-0 bg-black bg-opacity-60 text-white w-full py-1 px-2
+}
+
+.offer > div:last-of-type > p:first-of-type {
+    @apply text-lg font-bold
+}
+.offer > div:last-of-type > p:last-of-type {
+    @apply text-sm
+}
+
+.offer-details {
+    @apply fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80;
+    z-index: 80;
+}
+.offer-details .wrapper {
+    @apply absolute top-14 bottom-5 bg-white overflow-y-auto overflow-x-hidden;
+    box-shadow: 0 0 5px black inset;
+
+}
+.offer-details .images {
+    @apply mt-2;
+    @apply h-44 p-3 mx-auto;
+    width: 98%;
+    border: 1px solid black;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.offer-details .images > div:first-of-type {
+    @apply border-2 border-red-500
+}
+.offer-details .house-params .param input:first-of-type,
+.offer-details .plans .param input:first-of-type{
+    @apply border-gray-300;
+    border-right-width: 1px;
+}
+.offer-details .house-params .param input,
+.offer-details .plans .param input{
+    @apply px-1
+}
+.offer-details .plans .param:nth-of-type(odd) input,
+.offer-details .house-params .offer-param:nth-of-type(odd) input {
+    @apply bg-red-50 
+}
+
+.offer-details .plans .param:nth-of-type(odd),
+.offer-details .house-params .param:nth-of-type(odd){
+    @apply bg-red-50 border-y-2 border-red-100 ;
+}
+.offer-details .plans .param:last-of-type,
+.offer-details .house-params .param:last-of-type{
+    @apply border-y-2 border-red-100;
+}

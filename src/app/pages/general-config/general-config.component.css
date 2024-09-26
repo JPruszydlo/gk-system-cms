@@ -1,0 +1,4 @@
+.general-config-container > div {
+    @apply text-center border-2 mt-10 p-2 mx-auto;
+    width: 95%;
+}

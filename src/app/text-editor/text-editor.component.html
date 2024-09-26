@@ -1,0 +1,86 @@
+<div id="container">
+  <quill-editor [(ngModel)]="text" [style.width]="editorWith" (onContentChanged)="contentChanged($event)">
+    <div quill-editor-toolbar id="toolbar-container">
+      <div class="ql-formats border-r-2">
+        <div class="mb-7">
+          <select class="ql-font" [title]="'Font'">
+            <option value="serif"></option>
+            <option value="monospace"></option>
+            <option value="verdana">Verdana</option>
+            <option value="arial">Arial</option>
+          </select>
+          <select class="ql-size mx-2" [title]="'Size'">
+            <option value="8px">8</option>
+            <option value="9px">9</option>
+            <option value="10px">10</option>
+            <option value="11px">11</option>
+            <option value="12px">12</option>
+            <option value="14px">14</option>
+            <option value="16px">16</option>
+            <option value="18px">18</option>
+            <option value="20px">20</option>
+            <option value="22px">22</option>
+            <option value="24px">24</option>
+            <option value="26px">26</option>
+            <option value="28px">28</option>
+            <option value="36px">36</option>
+            <option value="48px">48</option>
+            <option value="72px">72</option>
+          </select>
+        </div>
+        <div style="display: grid; grid-template-columns: auto auto auto auto auto auto">
+          <button class="ql-bold" [title]="'Bold'"></button>
+          <button class="ql-italic" [title]="'Italic'"></button>
+          <button class="ql-underline" [title]="'Underline'"></button>
+          <span class="border-r-2 border-gray-300"><button class="ql-strike" [title]="'Strike'"></button></span>
+          <select class="ql-color" [title]="'Color'"></select>
+          <select class="ql-background" [title]="'BackgroundColor'"></select>
+        </div>
+        <p class="text-center text-xs mt-2">Czcionka</p>
+      </div>
+
+      <div class="ql-formats border-r-2">
+        <div class="mb-2" style="display: grid; grid-template-columns: 25% 25% 25% 25%">
+          <button class="ql-list" value="ordered" style="grid-column-start: 1; grid-column-end: 2"></button>
+          <button class="ql-list" value="bullet" style="grid-column-start: 2; grid-column-end: 5"></button>
+
+          <select class="ql-align">
+            <option class="ql-align" value="left"></option>
+            <option class="ql-align" value="center"></option>
+            <option class="ql-align" value="right"></option>
+            <option class="ql-align" value="justify"></option>
+          </select>
+          <select class="ql-line-height" [title]="'Line height'">
+            <option value="1.0"></option>
+            <option value="1.2"></option>
+            <option value="1.4"></option>
+            <option value="1.6"></option>
+            <option value="2.0"></option>
+            <option value="2.5"></option>
+            <option value="3.0"></option>
+          </select>
+        </div>
+
+        <p class="text-center text-xs mt-2">Akapit</p>
+      </div>
+      <div class="ql-formats border-r-2 pt-5">
+        <select class="ql-header">
+          <option value="1"></option>
+          <option value="2"></option>
+          <option value="3"></option>
+          <option value="4"></option>
+          <option value="5"></option>
+          <option value="6"></option>
+        </select>
+        <p class="text-center text-xs pt-10">Styl</p>
+      </div>
+      <div class="ql-formats pt-5 border-r-2">
+        <!-- <button class="ql-link"></button> -->
+        <button class="ql-image"></button>
+        <!-- <button class="ql-video"></button> -->
+
+        <p class="text-center text-xs pt-10">Multimedia</p>
+      </div>
+    </div>
+  </quill-editor>
+</div>

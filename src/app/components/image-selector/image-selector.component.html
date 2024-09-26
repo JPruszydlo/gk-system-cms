@@ -1,0 +1,137 @@
+<div
+  class="fixed block top-0 left-0 w-screen h-screen bg-black bg-opacity-80"
+  style="z-index: 998"
+  *ngIf="componentVisible"
+>
+  <button class="fixed top-2 right-5 text-xl font-bold" (click)="closeSelector()">
+    <i class="pi pi-times-circle text-4xl text-white"></i>
+  </button>
+
+  <div
+    style="box-shadow: 0 0 10px white; z-index: 999"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded overflow-auto w-3/4 h-3/4 p-5 bg-gray-100"
+  >
+    <p class="mb-2">
+      <i class="pi pi-angle-right mr-2 text-sm"></i>Pliki{{ currentDir == undefined ? '' : ' / ' + currentDir }}
+    </p>
+    <div class="file-browser">
+      <div style="display: grid; grid-template-columns: 24% 24% 24% 24%; row-gap: 15px; column-gap: 1%">
+        <button
+          #backButton
+          class="bg-gray-200 hidden"
+          (click)="backButton.style.display = 'none'; createButton.style.display = 'block'; goTo(-1, undefined)"
+        >
+          <i class="pi pi-chevron-left text-5xl"></i>
+          <p>Powrót</p>
+        </button>
+        <button #createButton class="border-2">
+          <span #buttonNew>
+            <button
+              (click)="buttonNew.style.display = 'none'; buttonSetName.style.display = 'block'; folderName.focus()"
+            >
+              <i class="pi pi-folder-plus text-5xl"></i>
+              <p>Nowy folder</p>
+            </button>
+          </span>
+          <span #buttonSetName class="hidden">
+            <input
+              #folderName
+              type="text"
+              class="w-full border-2 p-1"
+              placeholder="Wpisz nazwę"
+              (keyup.enter)="
+                buttonSetName.style.display = 'none'; buttonNew.style.display = 'block'; addFolder(folderName)
+              "
+            />
+            <button
+              (click)="buttonSetName.style.display = 'none'; buttonNew.style.display = 'block'; addFolder(folderName)"
+              class="button-red mt-1"
+            >
+              Ok
+            </button>
+            <button
+              (click)="buttonSetName.style.display = 'none'; buttonNew.style.display = 'block'; folderName.value = ''"
+              class="button-red mt-1 ml-2"
+            >
+              Anuluj
+            </button>
+          </span>
+        </button>
+
+        <div class="h-full cursor-pointer relative border-2">
+          <div class="my-auto w-full text-center absolute top-1/2 -translate-y-1/2">
+            <label for="file-upload" class="custom-file-upload cursor-pointer">
+              <i class="pi pi-upload text-5xl cursor-pointer"></i>
+              <p>Załaduj plik</p>
+              <p class="text-xs">Max: 2MB</p>
+            </label>
+            <input
+              #fileUpload
+              id="file-upload"
+              class="hidden"
+              (change)="onFileInputChange($event); fileUpload.value = ''"
+              type="file"
+              enctype="multipart/form-data"
+            />
+          </div>
+        </div>
+        <div *ngFor="let element of uiElements; let idx = index" class="border-2 text-center h-40">
+          <div *ngIf="!element.isFile" class="relative w-full h-full">
+            <button
+              (click)="
+                goTo(idx, folderName.innerText); backButton.style.display = 'block'; createButton.style.display = 'none'
+              "
+              class="mt-8"
+            >
+              <i class="pi pi-folder text-5xl"></i>
+            </button>
+            <div #folderName class="m-0 p-0">{{ element.name }}</div>
+            <button (click)="removeElement(idx)">
+              <i
+                class="z-30 pi pi-trash absolute top-1 right-2 text-xl text-red-500 font-semibold bg-black px-1.5 py-0.5 rounded-2xl bg-opacity-30"
+              ></i>
+            </button>
+          </div>
+          <div class="w-full h-full relative">
+            <button
+              (click)="onItemSelected(element.name)"
+              class="h-full w-full"
+              *ngIf="element.isFile && !element.mimeType.startsWith('image')"
+            >
+              <img [src]="'../../../assets/' + resolveIcon(element.mimeType)" class="m-auto" />
+            </button>
+
+            <img
+              *ngIf="element.isFile && element.mimeType.startsWith('image')"
+              #image
+              class="h-full w-full"
+              [ngSrc]="assetsUrl + element.name"
+              [style.cursor]="cursorType"
+              (click)="onItemSelected(image.src)"
+              width="400"
+              height="200"
+              priority
+            />
+            <button (click)="removeElement(idx)" *ngIf="element.isFile">
+              <i
+                class="z-30 pi pi-trash absolute top-1 right-1 text-xl text-red-500 font-semibold bg-black px-1.5 py-0.5 rounded-2xl bg-opacity-30"
+              ></i>
+            </button>
+            <a *ngIf="element.isFile" [href]="assetsUrl + element.name" download
+              ><i
+                class="z-30 pi pi-download absolute top-10 right-1 text-xl text-red-500 font-semibold bg-black px-1.5 py-0.5 rounded-2xl bg-opacity-30"
+              ></i
+            ></a>
+
+            <p
+              *ngIf="element.isFile"
+              class="text-xs w-full absolute bottom-0 bg-black bg-opacity-50 text-white text-center px-1"
+            >
+              {{ element.name.length > 50 ? element.name.substring(0, 50) + '...' : element.name }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

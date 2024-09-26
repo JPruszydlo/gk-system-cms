@@ -1,0 +1,52 @@
+@media screen and (max-width: 999px) {
+    #navbar > div {
+        @apply fixed top-0 left-0 w-screen h-12 grid grid-flow-col items-center bg-black bg-opacity-80
+    }
+    .menu-open {
+        @apply grid
+    }
+    .menu-close, #navbar .preview {
+        @apply hidden
+    }
+    #navbar ul {
+        @apply pt-12 w-screen h-full  grid-flow-row grid-rows-9
+    }
+    #navbar {
+        @apply fixed h-screen top-0 left-0
+    }
+    #navbar ul a {
+        @apply border-2 h-full bg-black bg-opacity-80 text-white text-xl font-bold 
+    }
+    #navbar ul li {
+        @apply text-center relative top-1/2 -translate-y-1/2 
+    }
+    #navbar > ul > li {
+        @apply bg-black bg-opacity-80
+    }
+    #navbar > ul > li button {
+        @apply relative top-1/2 -translate-y-1/2
+    }
+}
+@media screen and (min-width: 1000px) {
+    #navbar .toggler {
+        display: none;
+    }
+    #navbar > div {
+        @apply mt-4
+    }
+    #navbar {
+        @apply bg-black bg-opacity-80 w-60 h-screen fixed top-0 left-0 z-50;
+    }
+    
+    #navbar ul {
+        @apply text-white text-center; 
+    }
+    #navbar li {
+        @apply border-b-2 border-gray-300 my-6 w-3/5 m-auto hover:border-red-400 hover:text-red-400;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+    #navbar .active {
+        @apply text-red-400 border-red-400
+    }
+}

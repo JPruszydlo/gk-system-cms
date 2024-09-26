@@ -1,0 +1,102 @@
+<div class="page-container">
+  <span>
+    <div class="grid" style="width: 98%; margin: auto">
+      <button
+        class="hover:opacity-100 opacity-60 border-2 border-gray-500 w-full min-h-40"
+        (click)="addNewRealisation()"
+      >
+        <i class="pi pi-plus-circle text-5xl text-gray-500"></i>
+      </button>
+      <div *ngFor="let realisation of realisations; let index = index" style="padding: 5px; box-shadow: 0 0 5px black">
+        <div #images class="images grid gap-1.5">
+          <div
+            *ngFor="let image of realisation.realisationImages; let imgIndex = index"
+            class="relative bg-black"
+            (mouseover)="actionButtons.style.display = 'flex'"
+            (mouseout)="actionButtons.style.display = 'none'"
+          >
+            <img
+              [name]="index"
+              #realisationImage
+              [src]="image.imageSrc.includes('base64') ? image.imageSrc : assetsUrl + image.imageSrc"
+              [alt]="image.imageSrc"
+              class="w-full h-full z-20"
+            />
+            <button (click)="addToFavourite(index, imgIndex)" class="absolute top-1 right-1 z-30">
+              <i
+                class="pi {{
+                  image.isFavourite ? 'pi-heart-fill' : 'pi-heart'
+                }} text-red-500 text-xl bg-black rounded-3xl bg-opacity-60 px-2 pt-1 pb-0.5"
+              ></i>
+            </button>
+            <div class="bg-black bg-opacity-60 absolute w-full h-full top-0 left-0 hidden" #actionButtons>
+              <div class="flex flex-row absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                <p>
+                  <app-input-file
+                    #editImageInput
+                    (inputChange2)="
+                      realisationImage.src = $event.base64; realisationImage.alt = $event.filename; checkChanges(index)
+                    "
+                    styleClass="text-3xl"
+                    divStyleClass="bg-opacity-0 relative w-10 h-10 mr-10 "
+                    [staticVisible]="true"
+                  />
+                </p>
+                <p>
+                  <button (click)="removeRealisationImage(index, imgIndex)">
+                    <i class="pi pi-trash text-3xl text-red-500"></i>
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="relative min-h-20">
+            <app-input-file
+              [staticVisible]="true"
+              divStyleClass="bg-opacity-0 border-2 z-30"
+              styleClass="text-black text-2xl"
+              icon="pi-plus-circle"
+              (inputChange2)="addRealisationImage(index, $event)"
+            />
+          </div>
+        </div>
+        <p>
+          <input
+            type="text"
+            placeholder="Podpis"
+            class="px-2 py-1 border-2 w-full mt-2"
+            [value]="realisation.name"
+            (change)="descriptionChanged($event, index)"
+          />
+        </p>
+        <ul class="text-center my-2">
+          <li class="inline-block mx-2">
+            <div class="flex flex-row">
+              <div
+                #saveButton
+                [style.pointerEvents]="dataSaved ? '' : 'none'"
+                class="{{ realisation.id == -1 ? 'blink' : 'hidden' }} button-red mr-2"
+                (click)="saveRealisation(index)"
+              >
+                Zapisz
+              </div>
+              <div
+                [style.pointerEvents]="dataSaved ? '' : 'none'"
+                class="button-red"
+                (click)="removeRealisation(index)"
+              >
+                Usuń
+              </div>
+              <div *ngIf="!dataSaved" class="relative">
+                <p-progressSpinner styleClass="absolute w-6 h-6 top-1 left-2" />
+              </div>
+              <!-- <div class="button-red" (click)="saveRealisation(index)" *ngIf="realisation.id == -1 && dataSaved">
+                Zapisz
+              </div> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </span>
+</div>

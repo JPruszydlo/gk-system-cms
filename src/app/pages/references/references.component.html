@@ -1,0 +1,76 @@
+<div class="page-container">
+  <div class="grid" style="margin: auto; width: 98%">
+    <div class="p-2 border-2 w-full" *ngFor="let reference of references; let idx = index">
+      <div class="mb-2">
+        <p-selectButton
+          #refTypeSelect
+          id="ref-type-select"
+          class="rounded-lg"
+          [options]="stateOptions"
+          [ngModel]="reference.image == null ? 'text' : 'image'"
+          optionLabel="label"
+          optionValue="value"
+          (onChange)="
+            refText.style.display = $event.value == 'text' ? 'block' : 'none';
+            refImage.style.display = $event.value == 'text' ? 'none' : 'block'
+          "
+        />
+      </div>
+      <div
+        class="h-72 w-full relative"
+        [style.background-color]="reference.image == null ? '' : 'black'"
+        (mouseover)="FileInput.visible = refTypeSelect.value == 'image' ? true : false"
+        (mouseout)="FileInput.visible = false"
+      >
+        <textarea
+          #refText
+          [style.display]="refTypeSelect.value == 'text' ? 'block' : 'none'"
+          class="resize-none w-full h-full bg-gray-100 pt-1 px-2"
+          placeholder="Wpisz tekst"
+          (change)="textAreaChanged($event, idx)"
+          [value]="reference.text"
+        ></textarea>
+
+        <div
+          #refImage
+          class="absolute top-0 left-0 w-full h-full"
+          [style.display]="reference.image != null ? 'block' : 'none'"
+        >
+          <img
+            #img
+            [style.display]="refTypeSelect.value == 'text' ? 'none' : 'block'"
+            onerror="this.src = '../../../assets/default.png'"
+            [src]="assetsUrl + reference.image"
+            [alt]="reference.image"
+            [style.cursor]="'pointer'"
+            class="w-full h-full"
+          />
+          <app-input-file
+            #FileInput
+            (inputChange2)="img.src = $event.base64; img.alt = $event.filename; img.style.display = 'block'"
+            styleClass="text-7xl"
+          />
+        </div>
+      </div>
+      <p>
+        <input
+          type="text"
+          class="border-2 w-full mt-2 px-2 py-1"
+          placeholder="Nazwa klienta"
+          [value]="reference.customerName"
+          (change)="inputChanged($event, idx)"
+        />
+      </p>
+      <p class="w-full mt-2 text-center">
+        <button class="button-red ml-1" (click)="removeReference(idx)">Usuń</button>
+        <button #saveButton class="button-red ml-1" (click)="saveChanges(idx, img, refTypeSelect)">Zapisz</button>
+      </p>
+    </div>
+    <button
+      class="p-2 border-2 w-full opacity-60 hover:opacity-100"
+      (click)="references.push({ text: '', image: null, customerName: '', id: -1 })"
+    >
+      <i class="pi pi-plus-circle text-5xl text-gray-500"></i>
+    </button>
+  </div>
+</div>

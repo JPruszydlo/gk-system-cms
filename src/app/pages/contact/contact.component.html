@@ -1,0 +1,53 @@
+<div class="page-container">
+  <div class="px-4 fade-in">
+    <p>Dane firmy:</p>
+
+    <form (ngSubmit)="submit()" [formGroup]="contactForm">
+      <div class="table contact-data mt-2 mx-auto">
+        <span class="table-row">
+          <div class="table-cell">Imię i nazwisko:</div>
+          <div class="table-cell"><input formControlName="ceoName" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Nazwa:</div>
+          <div class="table-cell"><input formControlName="companyName" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Kod pocztowy:</div>
+          <div class="table-cell"><input formControlName="postCode" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Miasto:</div>
+          <div class="table-cell"><input formControlName="city" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Województwo:</div>
+          <div class="table-cell"><input formControlName="district" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Ulica:</div>
+          <div class="table-cell"><input formControlName="street" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Numer domu:</div>
+          <div class="table-cell"><input formControlName="houseNumber" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Numer mieszkania:</div>
+          <div class="table-cell"><input formControlName="flatNumber" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">Telefon:</div>
+          <div class="table-cell"><input formControlName="phone" type="text" /></div>
+        </span>
+        <span class="table-row">
+          <div class="table-cell">E-mail:</div>
+          <div class="table-cell"><input formControlName="email" type="text" /></div>
+        </span>
+      </div>
+      <p class="text-center mx-6 border-t-2 mt-4 pt-3">
+        <input type="submit" class="button-red" value="Zapisz" />
+      </p>
+    </form>
+  </div>
+</div>

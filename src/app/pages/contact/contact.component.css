@@ -1,0 +1,23 @@
+@media screen and (max-width: 999px) {
+    .contact-data .table-row {
+        @apply flex flex-col py-2
+    }
+    .page-container {
+        @apply pb-20
+    }
+    .page-container > div > p {
+        @apply pt-2
+    }
+}
+@media screen and (min-width: 1000px) {
+    .contact-data .table-cell {
+        @apply py-2
+    }
+    .contact-data .table-row {
+        @apply text-right
+    }
+}
+.contact-data input[type="text"] {
+    @apply border-2 align-middle ml-2 px-2 py-1
+}   
+

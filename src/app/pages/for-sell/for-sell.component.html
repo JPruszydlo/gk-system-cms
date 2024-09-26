@@ -1,0 +1,240 @@
+<input type="hidden" #offerImageId />
+<input type="hidden" #planId />
+
+<div class="page-container overflow-y-auto">
+  <button class="border-2 offer py-4 text-xl left-1/2 -translate-x-1/2" (click)="addNewOffer()">
+    <p class="text-center cursor-pointer"><i class="pi pi-plus-circle mr-2"></i>Nowa oferta</p>
+  </button>
+  <div class="offer {{ listClass }} min-h-24" *ngFor="let offer of offers; let oIdx = index">
+    <div class="grid" style="grid-template-columns: auto 142px; align-items: center">
+      <p>
+        Data dodania: <span class="text-nowrap">{{ getDateTime(offer.createAt) }}</span>
+      </p>
+      <div class="mb-1">
+        <button class="mr-2" (click)="setOfferState(oIdx, offer.id, !offer.available)">
+          <i
+            class="h-2 pi {{
+              offer.available ? 'pi-stop-circle text-red-500 ' : 'pi-play-circle text-green-500'
+            }} text-2xl"
+          ></i>
+        </button>
+        <button class="button-red text-sm mr-1" (click)="removeOffer(offer.id)"><i class="pi pi-trash"></i></button>
+        <button class="button-red text-sm" (click)="showOffer(oIdx, offer.id)">Edytuj</button>
+      </div>
+    </div>
+    <p class="pt-10 pb-24 border-2 text-center" *ngIf="offer.offerVisualisations.length == 0">Nie dodano zdjęć</p>
+    <img
+      *ngIf="offer.offerVisualisations.length > 0"
+      #offerThumbnail
+      [src]="assetsUrl + offer.offerVisualisations[0].image"
+    />
+    <div>
+      <p>{{ offer.name == '' ? 'Nie dodano opisu' : offer.name }}</p>
+      <p>{{ offer.name2 == '' ? 'Nie dodano opisu' : offer.name2 }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="offer-details  {{ detailsClass }}">
+  <div class="flex flex-row absolute top-4" style="right: 12.5%">
+    <p-progressSpinner
+      *ngIf="!dataSaved"
+      strokeWidth="5"
+      animationDuration=".8s"
+      styleClass="small-spinner w-10 h-5 mt-2"
+    />
+    <button
+      [style.pointerEvents]="dataSaved ? '' : 'none'"
+      (click)="wrapper.scrollTop = 0; detailsClosing()"
+      class="{{ dataSaved ? '' : 'button-inactive' }} button-red text-sm mr-2 h-2/3 my-auto"
+    >
+      <p><i class="pi pi-times mr-1"></i>Zamknij</p>
+    </button>
+    <button
+      type="submit"
+      class="{{ dataSaved ? '' : 'button-inactive' }} button-red text-xl"
+      (click)="submit()"
+      [style.pointerEvents]="dataSaved ? '' : 'none'"
+    >
+      <i class="pi pi-save mr-1"></i>Zapisz zmiany
+    </button>
+  </div>
+  <div #wrapper class="wrapper">
+    <div class="w-full flex flex-col pl-3 py-2">
+      <p>
+        Nazwa:<input
+          #offerName
+          type="text"
+          class="ml-2 border-2 w-1/2"
+          [value]="selectedOffer?.name"
+          (change)="selectedOffer!.name = offerName.value"
+        />
+      </p>
+      <p class="mt-2">
+        Krótki opis:<input
+          #offerShortDescription
+          type="text"
+          [value]="selectedOffer?.name2"
+          (change)="selectedOffer!.name2 = offerShortDescription.value"
+          class="ml-2 border-2 w-1/2"
+        />
+      </p>
+    </div>
+    <div class="images">
+      <div class="w-32 h-full inline-block relative border-2">
+        <app-input-file
+          divStyleClass="bg-opacity-0"
+          icon="pi-plus-circle"
+          [staticVisible]="true"
+          (inputChange2)="addVisualisation($event)"
+        />
+      </div>
+      <div
+        class="w-48 h-full inline-block mx-1 relative"
+        *ngFor="let visualisation of selectedOffer?.offerVisualisations; let vIdx = index"
+        (mouseover)="actionButtons.style.display = 'block'"
+        (mouseout)="actionButtons.style.display = 'none'"
+      >
+        <img
+          #offerImage
+          [src]="visualisation.image.includes('base64') ? visualisation.image : assetsUrl + visualisation.image"
+          [alt]="visualisation.image"
+          class="w-full h-full"
+        />
+        <div class="bg-black bg-opacity-60 absolute w-full h-full top-0 left-0 hidden" #actionButtons>
+          <div class="flex flex-row absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+            <p>
+              <app-input-file
+                #editImageInput
+                (inputChange2)="offerImage.src = $event.base64; offerImage.alt = $event.filename"
+                styleClass="text-3xl"
+                divStyleClass="bg-opacity-0 relative w-10 h-10 mr-10 "
+                [staticVisible]="true"
+              />
+            </p>
+            <p>
+              <button (click)="selectedOffer?.offerVisualisations?.splice(vIdx, 1)">
+                <i class="pi pi-trash text-3xl text-red-500"></i>
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-editor mt-8 mx-auto" style="width: 95%">
+      <p>Opis oferty:</p>
+      <textarea
+        #offerDescription
+        class="w-full border-2 resize-none text-xs p-2"
+        rows="7"
+        [value]="selectedOffer?.description"
+        (change)="selectedOffer!.description = offerDescription.value"
+      ></textarea>
+    </div>
+
+    <div class="house-params mx-auto mt-8" style="width: 95%">
+      <p>Parametry domu:</p>
+      <div class="py-2 params text-xs">
+        <div
+          class="grid text-nowrap param py-1 offer-param"
+          style="grid-template-columns: 20px 48.5% 48.5%"
+          *ngFor="let param of selectedOffer?.offerParams; let oIdx = index"
+        >
+          <button (click)="selectedOffer?.offerParams?.splice(oIdx, 1)">
+            <i #icon class="pi pi-trash text-red-500"></i>
+          </button>
+          <input
+            #offerParamName
+            type="text"
+            placeholder="Nazwa"
+            [value]="param.name"
+            (change)="param.name = offerParamName.value"
+          />
+          <input
+            #offerParamValue
+            type="text"
+            placeholder="Wartość"
+            [value]="param.value"
+            (change)="param.value = offerParamValue.value"
+          />
+        </div>
+        <button class="button-red" (click)="selectedOffer?.offerParams?.push({ name: '', value: '' })">
+          Dodaj parametr
+        </button>
+      </div>
+    </div>
+
+    <div class="plans mt-8 mx-auto pb-5" style="width: 95%">
+      <p>Plany:</p>
+      <div class="plan w-full my-5" *ngFor="let plan of selectedOffer?.offerPlans; let pIdx = index">
+        <div class="col-start-1 col-end-3 pb-2">
+          <input
+            #planName
+            type="text"
+            class="border-2"
+            placeholder="Nazwa planu"
+            [value]="plan.floorName"
+            (change)="plan.floorName = planName.value"
+          />
+          <button class="button-red ml-2 text-sm" (click)="selectedOffer?.offerPlans?.splice(pIdx, 1)">
+            Usuń plan
+          </button>
+        </div>
+        <div
+          class="h-full relative cursor-pointer min-h-40 border-2 mr-2"
+          (click)="planId.value = pIdx.toString()"
+          (mouseover)="inputPlanImage.visible = true"
+          (mouseout)="inputPlanImage.visible = false"
+        >
+          <img
+            #offerPlanImage
+            [src]="plan.image.includes('base64') ? plan.image : assetsUrl + plan.image"
+            [alt]="plan.image"
+            class="mx-auto"
+            style="max-height: 480px"
+            onerror="this.src = '../../../assets/default.png'"
+          />
+          <app-input-file
+            #inputPlanImage
+            (inputChange2)="offerPlanImage.src = $event.base64; offerPlanImage.alt = $event.filename"
+            styleClass="text-5xl font-bold"
+          />
+        </div>
+        <div class="text-xs">
+          <div
+            class="grid text-nowrap param px-2 py-1"
+            *ngFor="let param of plan.offerPlanParams; let paramIdx = index"
+          >
+            <button (click)="plan.offerPlanParams.splice(paramIdx, 1)">
+              <i class="pi pi-trash text-red-500 text-sm"></i>
+            </button>
+            <input
+              #planParamName
+              type="text"
+              placeholder="Nazwa"
+              [value]="param.name"
+              (change)="param.name = planParamName.value"
+            />
+            <input
+              #planParamValue
+              type="text"
+              placeholder="Wartość"
+              [value]="param.value"
+              (change)="param.value = planParamValue.value"
+            />
+          </div>
+          <button class="button-red" (click)="plan.offerPlanParams.push({ name: '', value: '' })">
+            Dodaj parametr
+          </button>
+        </div>
+      </div>
+      <button
+        class="button-red"
+        (click)="selectedOffer?.offerPlans?.push({ image: '', offerPlanParams: [], floorName: '' })"
+      >
+        Dodaj plan
+      </button>
+    </div>
+  </div>
+</div>

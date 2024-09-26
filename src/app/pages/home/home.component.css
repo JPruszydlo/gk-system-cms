@@ -1,0 +1,35 @@
+@media screen and (min-width: 1000px) {
+    #menu table {
+        margin: auto;
+    }
+    #menu td {
+        text-align: center;
+    }
+    #menu input[type="text"],
+    #carousel-footer input[type="text"] {
+        @apply px-2 py-1 border-gray-300 ;
+        border-width: 1px;
+        width: 100%;
+    }
+    #menu input[type="checkbox"] {
+        @apply align-bottom
+    }
+    #carousel-footer table {
+        width: 100%;
+    }
+    #carousel-footer td:first-of-type {
+        text-align: right;
+        width: 140px;
+        padding-right: 15px;
+    }
+    .tab-view-style {
+        @apply absolute w-full left-0;
+        padding-left: 40px;
+    }
+}
+@media screen and (max-width: 999px) {
+    .tab-view-style {
+        @apply absolute w-full left-0;
+        padding-left: 0;
+    }
+}

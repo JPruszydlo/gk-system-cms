@@ -1,0 +1,18 @@
+<div class="{{ defaultClass }} {{ divStyleClass }} cursor-pointer" *ngIf="visible">
+  <input
+    #input
+    type="file"
+    (change)="fileInputChange($event); input.value = ''"
+    class="absolute opacity-0 border-2 border-red-600 z-50 w-full h-full cursor-pointer"
+  />
+  <i
+    class="pi {{
+      icon
+    }}  text-red-500 text-center absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40  cursor-pointer {{
+      styleClass
+    }}"
+  ></i>
+  <!-- <label class="custom-file-upload cursor-pointer">
+    
+  </label> -->
+</div>

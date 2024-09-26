@@ -1,0 +1,3 @@
+.disabled {
+    @apply bg-neutral-300 pointer-events-none
+}

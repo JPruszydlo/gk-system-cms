@@ -1,0 +1,94 @@
+<div class="w-full banner-config-panel">
+  <div class="flex flex-row mb-4" style="align-items: center">
+    <p-selectButton [options]="stateOptions" [(ngModel)]="selectedBannerType" optionLabel="label" optionValue="value" />
+    <button class="button-red ml-4" (click)="saveChanges()" [style.pointerEvents]="dataSaved ? '' : 'none'">
+      Zapisz zmiany
+    </button>
+    <p-progressSpinner
+      strokeWidth="5"
+      animationDuration=".8s"
+      *ngIf="!dataSaved"
+      styleClass="small-spinner w-10 h-5 mt-1"
+    />
+  </div>
+  <div
+    class="h-full m-auto mt-5 fade-in"
+    [style.width]="'min(650px, 90vw)'"
+    [style.display]="selectedBannerType == 'one-item' ? 'block' : 'none'"
+    (mouseover)="oneItemImageFileInput.visible = true"
+    (mouseout)="oneItemImageFileInput.visible = false"
+  >
+    <p class="relative" [style.background-color]="'black'">
+      <app-input-file
+        #oneItemImageFileInput
+        styleClass="text-7xl"
+        (inputChange2)="imageChanged($event, oneItemImage)"
+      />
+      <img
+        #oneItemImage
+        [src]="assetsUrl + oneItemConfig?.image"
+        [alt]="oneItemConfig?.image"
+        onerror="this.src = '../../../assets/default.png'"
+        [style.cursor]="'pointer'"
+        style="min-height: 100px; margin: 0 auto"
+      />
+    </p>
+  </div>
+
+  <div class="carousel" [style.display]="selectedBannerType == 'carousel' ? 'grid' : 'none'" style="">
+    <div
+      class="px-3 pt-3 pb-1 border-2 relative fade-in"
+      style="max-width: 335px"
+      *ngFor="let item of carouselItems; let cIndex = index"
+      #CarouselItem
+    >
+      <p
+        class="relative"
+        [style.background-color]="'black'"
+        [style.border]="'2px solid lightgray'"
+        style="min-height: 80px; cursor: pointer"
+        (mouseover)="CarouselFileInput.visible = true"
+        (mouseout)="CarouselFileInput.visible = false"
+      >
+        <app-input-file #CarouselFileInput (inputChange2)="imageChanged($event, CarouselImage)" styleClass="text-4xl" />
+        <img
+          #CarouselImage
+          [src]="assetsUrl + item.image"
+          [alt]="item.image"
+          class="mx-auto"
+          onerror="this.src = '../../../assets/default.png'"
+        />
+      </p>
+
+      <input
+        #ContentTitle
+        value="{{ item.contentTitle }}"
+        type="text"
+        placeholder="Tytuł"
+        class="py-1 px-2 border-2 w-full my-2"
+        (change)="textChanged($event, 'title', cIndex)"
+      />
+      <textarea
+        #ContentText
+        value="{{ item.contentText }}"
+        rows="4"
+        style="resize: none"
+        class="border-2 w-full py-1 px-2"
+        placeholder="Treść"
+        (change)="textChanged($event, 'text', cIndex)"
+      ></textarea>
+
+      <ul class="text-center w-full p-2">
+        <li style="display: inline-block; margin-left: 5px">
+          <button class="button-red" (click)="removeCarouselItem(cIndex)">Usuń</button>
+        </li>
+      </ul>
+    </div>
+    <button
+      (click)="addCarouselItem()"
+      class="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 opacity-60 hover:border-4 hover:opacity-100 w-full h-full"
+    >
+      <i class="pi pi-plus-circle text-7xl text-gray-400"></i>
+    </button>
+  </div>
+</div>

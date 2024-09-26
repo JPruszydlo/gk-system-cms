@@ -1,0 +1,16 @@
+@media screen and (min-width: 1000px) {
+    .banner-config-panel .carousel {
+        grid-template-columns: 24% 24% 24% 24%;
+        column-gap: 1%; 
+        row-gap: 15px; 
+        margin: 0 auto
+    }
+}
+@media screen and (max-width: 999px) {
+    .banner-config-panel .carousel {
+        grid-template-columns: 49% 49%;
+        column-gap: 2%; 
+        row-gap: 15px; 
+        margin: 0 auto
+    }
+}

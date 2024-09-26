@@ -1,0 +1,46 @@
+<div id="navbar" class="z-40">
+  <div class="text-center">
+    <button (click)="menuVisible = !menuVisible" class="toggler"><i class="pi pi-bars text-2xl text-white"></i></button>
+    <p-toggleButton
+      [style.pointerEvents]="toggleState"
+      [styleClass]="'text-sm px-2 py-1'"
+      [(ngModel)]="technicalBreakSet"
+      [onLabel]="'Przerwa techniczna'"
+      [offLabel]="'Przerwa techniczna'"
+      [onIcon]="'pi pi-lock'"
+      [offIcon]="'pi pi-lock-open'"
+      styleClass="w-9rem"
+      ariaLabel="Do you confirm"
+      (onChange)="toggleTechnicalBreak()"
+    />
+  </div>
+  <ul [class]="menuVisible ? 'menu-open' : 'menu-close'">
+    <a href="/general-config"><li [className]="resolveActiveElement('general-config')">Ogólne</li></a>
+    <a href="/"><li [className]="resolveActiveElement('')">Strona główna</li></a>
+    <a href="/about-us"><li [className]="resolveActiveElement('about-us')">O nas</li></a>
+    <a href="/for-sell"><li [className]="resolveActiveElement('for-sell')">Oferty</li></a>
+    <a href="/realisations"><li [className]="resolveActiveElement('realisations')">Realizacje</li></a>
+    <a href="/references"><li [className]="resolveActiveElement('references')">Referencje</li></a>
+    <a href="/contact"><li [className]="resolveActiveElement('contact')">Kontakt</li></a>
+    <a href="/messages"><li [className]="resolveActiveElement('messages')">Wiadomości</li></a>
+
+    <li class="border-none preview">
+      <button class="button-red" (click)="previewVisible = true">Podgląd strony</button>
+    </li>
+    <li class="border-none">
+      <button class="button-red text-xl" (click)="logout()">Wyloguj</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="previewVisible" class="preview fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-50">
+  <button class="text-white absolute top-2 right-5" (click)="previewVisible = false">
+    <i class="pi pi-times-circle text-4xl"></i>
+  </button>
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 h-5/6 z-50 bg-white"
+    style="box-shadow: 0 0 5px white"
+  >
+    <object class="w-full h-full" type="text/html" data="https://gk-system.myshort.pl/"></object>
+  </div>
+</div>
